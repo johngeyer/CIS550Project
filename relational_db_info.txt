@@ -1,0 +1,198 @@
+MySQL Database Information
+user = 'johngeyer'
+password = '10370Buxton!'
+host = 'baseballdata.cu9ww8beiiup.us-east-2.rds.amazonaws.com'
+port = 3306 
+Database Name = 'CIS550'
+
+## Note that the port number is for MySQL clients. We may 
+## need to use a different port for our actual website, (I 
+## can set up the port for HTTP access)
+
+
+Tables/Schemas: 
+
+Events
+	GAME_ID
+	AWAY_TEAM_ID
+	INN_CT
+	OUTS_CT
+	BALLS_CT
+	STRIKES_CT
+	BAT_ID
+	BAT_HAND
+	PITCHER_ID
+	RES_PITCH_ID
+	RES_PITCH_HAND
+	LEADOFF_FL
+	PH_FL
+	POS_ID
+	LINEUP_ID
+	EVENT_ID
+	BAT_EVENT_FL
+	AB_FL
+	HIT_VAL
+	SH_FL
+	SF_FL
+	DP_FL
+	TP_FL
+	RBI
+	BATTED_BALL_TYPE
+	BUNT_FL
+	FOUL_FL
+	HOME_ID
+	BAT_TEAM
+	FLD_TEAM
+
+Games
+	GAME_ID
+	GAME_DATE
+	AWAY_TEAM_ID
+	HOME_TEAM_ID
+	ATTENDANCE 
+	TIME 
+	INN_CT 
+	AWAY_SCORE
+	HOME_SCORE 
+	AWAY_HITS 
+	HOME_HITS 
+	AWAY_ERR
+	HOME_ERR 
+	AWAY_LOB
+	HOME_LOB 
+	WIN_PITCH_ID
+	LOSE_PITCH_ID 
+	SAVE_PITCH_ID 
+	GWRBI_ID
+	AWAY_LINE 
+	HOME_LINE
+	AWAY_AB 
+	AWAY_2B
+	AWAY_3B
+	AWAY_HR
+	AWAY_RBI
+	AWAY_HP
+	AWAY_BB
+	AWAY_IBB
+	AWAY_SO
+	AWAY_SB
+	AWAY_CS
+	AWAY_GDP
+	AWAY_ERA
+	HOME_AB 
+	HOME_2B 
+	HOME_3B 
+	HOME_HR 
+	HOME_RBI
+	HOME_HP
+	HOME_BB
+	HOME_IBB
+	HOME_SO
+	HOME_SB 
+	HOME_CS 
+	HOME_GDP
+	HOME_ERA
+
+Salary
+	teamID
+	yearID
+	playerID
+	salary
+
+Players
+	playerID
+	birthYear
+	birthMonth
+	birthDay
+	nameFirst
+	nameLast
+	weight
+	height
+	bats
+	throws
+	debut
+	finalGame
+
+Teams
+	yearID
+	lgID
+	teamID
+	G
+	W
+	L
+	R
+	AB
+	H
+	2B
+	3B
+	HR
+	BB
+	SO
+	SB
+	CS
+	HBP
+	SF
+	RA
+	ER
+	ERA
+	CG
+	SHO
+	SV
+	IPouts
+	name
+	attendance
+
+Batting
+	teamID
+	yearID
+	playerID
+	stint
+	G
+	AB
+	R
+	H
+	2B
+	3B
+	HR
+	RBI
+	SB
+	CS
+	BB
+	SO
+	IBB
+	HBP
+	SH
+	SF
+	GIDP
+
+Pitching
+	teamID
+	yearID
+	playerID
+	stint
+	W
+	L
+	G
+	GS
+	CG
+	SHO
+	SV
+	IPouts
+	H
+	ER
+	HR
+	BB
+	SO
+	BAOpp
+	ERA
+	IBB
+	WP
+	HBP
+	BK
+	BFP
+	GF
+	R
+	SH
+	SF
+	GIDP
+

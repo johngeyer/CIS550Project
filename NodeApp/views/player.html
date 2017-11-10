@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html ng-app="angularjsNodejsTutorial">
 <html lang="en">
 <head>
   <title>Baseball Player Page Example</title>
@@ -7,6 +8,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+  <script src="javascripts/app.js" type="text/javascript"></script>
+  <style>
   <style>
     /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
     .row.content {height: 1500px}
@@ -36,6 +40,18 @@
 </head>
 <body>
 
+<nav role="navigation" class="navbar navbar-static-top navbar-default">
+            <div class="container">
+                <div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand">Baseball</a></div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <li><a href="/">Home Page</a></li>
+                    <li><a href="/player">Search Player</a></li>
+                    <li><a href="/teams">Search Team</a></li>
+                </div>
+            </div>
+        </nav>
+
+
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-3 sidenav">
@@ -48,25 +64,31 @@
       </ul><br>
     </div>
 
+
+
     <div class="col-sm-9">
       <h4><small>Player PAGE</small></h4>
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search Player..">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button">
-            <span class="glyphicon glyphicon-search"></span>
-          </button>
-        </span>
-      </div>
-      <hr>
-      <h2>Player page</h2>
-      <p>Player Stats:</p>
-    </div>
-  </div>
-</div>
 
-<footer class="container-fluid">
-  <p>Footer Text</p>
-</footer>
+
+
+     <div class="container">
+            <!-- Main component for a primary marketing message or call to action-->
+            <div class="jumbotron">
+         <div ng-controller="playerController">
+        <p><span aria-hidden="true" class="glyphicon text-primary glyphicon-search"></span> Search Player
+            <input name="name" ng-model="name" value="">
+            <button type="button" ng-click="Submit()" class="button">Search Player</button>
+        </p>
+        <table border="0" cellpadding="10" cellspacing="1" width="500" align="center"> 
+            <tr> 
+            <td> First Name </td>
+            <td> Last Name </td>
+            <tr ng-repeat="x in data"> 
+            <td> {{x.nameFirst}} </td>
+            <td> {{x.nameLast}} </td>
+            </tr>
+        </table>
+        </div>
+
 </body>
 </html>

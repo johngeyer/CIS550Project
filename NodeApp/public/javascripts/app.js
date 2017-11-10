@@ -12,8 +12,6 @@ app.controller('playerController', function($scope, $http) {
             console.log('err');
         });
 
-        //var path = "/afterLogin.html";
-        //window.location.href = path;
     
     }; 
 });

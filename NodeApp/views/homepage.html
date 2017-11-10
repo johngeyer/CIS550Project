@@ -39,6 +39,18 @@
 </head>
 <body>
 
+<!-- Static NavBar-->
+        <nav role="navigation" class="navbar navbar-static-top navbar-default">
+            <div class="container">
+                <div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand">Baseball</a></div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <li><a href="/">Home Page</a></li>
+                    <li><a href="/player">Search Player</a></li>
+                    <li><a href="/teams">Search Team</a></li>
+                </div>
+            </div>
+        </nav>
+
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-3 sidenav">
@@ -51,36 +63,19 @@
       </ul><br>
     </div>
 
+
     <div class="col-sm-9">
       <h4><small>HOME PAGE</small></h4>
 
       <div class="container">
-            <!-- Main component for a primary marketing message or call to action-->
-            <div class="jumbotron">
-         <div ng-controller="playerController">
-        <p><span aria-hidden="true" class="glyphicon text-primary glyphicon-search"></span> Search Player
-            <input name="name" ng-model="name" value="">
-            <button type="button" ng-click="Submit()" class="button">Search Player</button>
-        </p>
-
-        <table border="0" cellpadding="10" cellspacing="1" width="500" align="center"> 
-            <tr> 
-            <td> First Name </td>
-            <td> Last Name </td>
-            <tr ng-repeat="x in data"> 
-            <td> {{x.nameFirst}} </td>
-            <td> {{x.nameLast}} </td>
-            </tr>
-        </table>
-
-        </div>
-
       <hr>
       <h2>Baseball Stats from 30 Teams</h2>
       <p>Baseball info here:</p>
     </div>
   </div>
 </div>
+</div>
+
 
 <footer class="container-fluid">
   <p>Footer Text</p>

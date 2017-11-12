@@ -1,0 +1,85 @@
+########## DATABASE CONNECTION INFORMATION ##############
+MySQL Database Information
+user = 'johngeyer'
+password = '10370Buxton!'
+host = 'baseballdata.cu9ww8beiiup.us-east-2.rds.amazonaws.com'
+port = 3306 
+Database Name = 'CIS550'
+
+########## TRANSLATED SQL QUERIES FROM MILESTONE 1 #############
+
+1) Who led the league in homeruns each year? What about between years Y1 and Y2?
+
+SELECT b.name, b.year FROM Batting b
+WHERE b.HR IN (SELECT MAX(b2.HR) FROM Batting b2 WHERE b2.year=b.year)
+
+If we want to look just at a specific range of years, we'd add the condition
+"AND b.year <= Y2 AND b.year >= Y1"'
+
+2) What are the single season and career records for a given stat?
+
+For the RBI statistic, the queries are: 
+
+// Single season record
+SELECT MAX(b.RBI) FROM Batting b  
+
+// Career record
+SELECT MAX(career_rbi) FROM 
+	(SELECT COUNT(b.RBI) AS career_rbi
+	 FROM Batting b
+	 GROUP BY Player_id)
+
+3) Of players with at least X plate appearances, who had the highest ratio of stat Y to stat Z
+
+SELECT b.name, b.Y/b.Z AS ratio 
+FROM Batting b
+WHERE b.PA >= X and b.Y/b.Z = (SELECT MAX(b1.Y/b1.Z) FROM Batting b1)
+
+4) Show me a list of all players with at most 100 plate appearances, at most 50 strikeouts, and who had at least 20 homeruns? 
+
+SELECT b.name 
+FROM Batting b
+WHERE b.PA <= 100 AND b.SO <= 50 AND b.HR >= 20
+
+5) Which rookies had the best strikeout to walk ratio?
+
+SELECT b.name, b.SO/b.BB AS ratio
+FROM Batting b
+WHERE b.year = (SELECT MIN(b1.year) 
+				FROM Batting b1 
+				WHERE b1.player_id=b.player_id)
+ORDER BY b.SO/b.BB DESC
+
+6) How many players each year hit over 40 homeruns? 
+
+SELECT COUNT(*), b.year 
+FROM Batting b
+WHERE b.HR > 40
+GROUP BY b.year
+
+7) Who are the players who have hit 80 extra base hits in a season? Order them by number of times they have completed the feat. 
+
+SELECT b.Player_id, b.name, COUNT(b.year)
+FROM Batting b
+WHERE b.2B + b.3B + b.HR >= 80
+GROUP BY b.Player_id
+ORDER BY COUNT(b.year) DESC
+
+8) Who had the highest exit-velocity to home-run ratio? The worst?
+
+So we ended up not including the statcast data set (which had information
+about exit velocities) so this query will not be possible on our 
+application. 
+
+9) How does launch angle correlate with number of home runs hit?
+
+This isn't really an SQL query. We presented this as a possible question
+that could be answered by our web application. 
+
+10) Which active pitchers who have at least 1000 career strikeouts have the
+highest spin rate this season?
+
+Again, we didn't include the statcast data set, and hence we don't have
+access to spin-rates. Thus this query will not be answered by our application. 
+
+

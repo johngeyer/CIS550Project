@@ -1,4 +1,4 @@
-MySQL Database Information
+fMySQL Database Information
 user = 'johngeyer'
 password = '10370Buxton!'
 host = 'baseballdata.cu9ww8beiiup.us-east-2.rds.amazonaws.com'

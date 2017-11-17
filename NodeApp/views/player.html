@@ -2,7 +2,7 @@
 <html ng-app="angularjsNodejsTutorial">
 <html lang="en">
 <head>
-  <title>Baseball Player Page Example</title>
+  <title>Baseball Player Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -35,6 +35,9 @@
     }
     .row.content {height: auto;} 
   }
+
+  input { display: inline; }
+
 </style>
 </head>
 <body>
@@ -44,52 +47,34 @@
                 <div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand">Baseball</a></div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <li><a href="/">Home Page</a></li>
-                    <li><a href="/search_player">Search Player</a></li>
+                    <li><a href="/search_player">Search Players</a></li>
                     <li><a href="/player">Player's Statistics</a></li>
                     <li><a href="/teams">Search Team</a></li>
                 </div>
             </div>
         </nav>
 
-<!--
-  <div class="container-fluid">
-          
-            <div class="row content">
-      <div class="col-sm-3 sidenav">
-        <h4>Split Section Here:</h4>
-        <ul class="nav nav-pills nav-stacked">
-         <div ng-controller="splitController">
-        <p><span aria-hidden="true" class="glyphicon text-primary glyphicon-search"></span> Enter details to insert:
-        </p>
-            SELECT START DATE: <input type="text" name="start" ng-model="start" value=""/></br>
-            SELECT END DATE <input type="text" name="end" ng-model="end" value=""/></br>
-            SELECT MONTH <input type="text" name="month" ng-model="month" value=""/></br>
-            SELECT YEAR <input type="text" name="year" ng-model="year" value=""/></br> 
-            SELECT POSITION <input type="text" name="position" ng-model="position" value=""/></br>
-            SELECT COUNT <input type="text" name="count" ng-model="count" value=""/></br>
-            <button type="button" ng-click="split()" class="button">Search Statistics</button></br>
-            </ul><br>
-        </div>
--->
-
-
 
       <div class="col-sm-9">
         <h4><small>Player Statistics</small></h4>
 
          <div class="container">
-            <!-- Main component for a primary marketing message or call to action-->
-            <div class="jumbotron"> 
           <div ng-controller="playerController">
-        <p><span aria-hidden="true" class="glyphicon text-primary glyphicon-search"></span> Enter Player ID
-            <input name="playerID" ng-model="playerID" value="">
+        <p>
+            Player ID<input name="playerID" ng-model="playerID" value="">
+            Start Season<input name="startYear" ng-model="startYear" value="">
+            End Season<input name="endYear" ng-model="endYear" value="">
             <button type="button" ng-click="Lookup()" class="button">Search Player</button>
         </p>
 
+        <!-- This shows the name of the player and the birthyear -->
         <hr>
         <h2>{{data[0].name}}</h2>
         <p>{{data[0].birthYear}}</p>
 
+
+        <!-- This table shows all the stats-->
+        <div class="jumbotron"> 
         <table border="2" cellpadding="5" cellspacing="5" width="800" align="center"> 
             <tr> 
             <td>Year</td>
@@ -98,8 +83,8 @@
             <td>AB</td>
             <td>R</td>
             <td>H</td>
-            <!--<td>2B</td>-->
-            <!--<td>3B</td>-->
+            <td>2B</td>
+            <td>3B</td>
             <td>HR</td>
             <td>RBI</td>
             <td>SB</td>
@@ -111,7 +96,7 @@
             <td>SH</td>
             <td>SF</td>
             <td>GIDP</td> 
-            <td>D</td>
+            <!-- the ng-repeat is basically a for loop that iterates over the rows of the data returned -->
             <tr ng-repeat="x in data">
             <td>{{x.yearID}}</td>
             <td>{{x.teamID}}</td>
@@ -119,8 +104,8 @@
             <td>{{x.AB}}</td>
             <td>{{x.R}}</td>
             <td>{{x.H}}</td>
-            <!--<td>{{x.2B}}</td>-->
-            <!--<td>{{x.3B}}</td>-->
+            <td>{{x.Doubles}}</td>
+            <td>{{x.Triples}}</td>
             <td>{{x.HR}}</td>
             <td>{{x.RBI}}</td>
             <td>{{x.SB}}</td>
@@ -132,7 +117,6 @@
             <td>{{x.SH}}</td>
             <td>{{x.SF}}</td>
             <td>{{x.GIDP}}</td> 
-            <td>{{x.D}}</td>
             </tr>
         </table>
         </div>

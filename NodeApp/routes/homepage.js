@@ -29,7 +29,7 @@ router.get('/team', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'team.html'));
 });
 
-// This method is to get the players data based on the query
+// This method is to get the players that match the prefix of the name
 router.get('/search_player/:name', function(req,res) {
   // use console.log() as print() in case you want to debug, example below:
   console.log("inside player name");
@@ -48,15 +48,23 @@ router.get('/search_player/:name', function(req,res) {
 });
 
 // This method is to get all the player data based on the playerID
-router.get('/player/:playerID', function(req,res) {
+router.get('/player/:playerID/:startYear/:endYear', function(req,res) {
   // use console.log() as print() in case you want to debug, example below:
   console.log("inside player ID");
   
-  var query = 'SELECT P.name, P.birthYear, B.yearID, B.teamID, B.G, B.AB, B.R, B.H, B.2B, B.3B, B.HR, B.RBI, B.SB, B.CS, B.BB, B.SO, B.IBB, B.HBP, B.SH, B.SF, B.GIDP ';
+  var query = 'SELECT P.name, P.birthYear, B.yearID, B.teamID, B.G, B.AB, B.R, B.H, B.Doubles, B.Triples, B.HR, B.RBI, B.SB, B.CS, B.BB, B.SO, B.IBB, B.HBP, B.SH, B.SF, B.GIDP ';
   query = query + ' FROM Players P INNER JOIN Batting B ON P.playerID = B.playerID';
   // you may change the query during implementation
   var playerID = req.params.playerID;
-  if (playerID != 'undefined') query = query + ' WHERE P.playerID = "' + playerID + '"' ;
+  query = query + ' WHERE P.playerID = "' + playerID + '"' ;
+  var startYear = req.params.startYear;
+  var endYear = req.params.endYear;
+
+  if (startYear != 'undefined') query = query + ' AND B.yearID >= "' + startYear + '"' ;
+  if (endYear != 'undefined') query = query + ' AND B.yearID <= "' + endYear + '"' ;
+
+  query = query + ' ORDER BY B.yearID ASC' ;
+  console.log(query);
   connection.query(query, function(err, rows, fields) {
     if (err) console.log(err);
     else {

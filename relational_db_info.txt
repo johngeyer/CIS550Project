@@ -104,8 +104,7 @@ Players
 	birthYear
 	birthMonth
 	birthDay
-	nameFirst
-	nameLast
+	name
 	weight
 	height
 	bats

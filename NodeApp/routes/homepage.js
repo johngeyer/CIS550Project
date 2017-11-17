@@ -17,6 +17,10 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'homepage.html'));
 });
 
+router.get('/search_player', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'search_player.html'));
+});
+
 router.get('/player', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'player.html'));
 });
@@ -26,13 +30,13 @@ router.get('/team', function(req, res, next) {
 });
 
 // This method is to get the players data based on the query
-router.get('/player/:name', function(req,res) {
+router.get('/search_player/:name', function(req,res) {
   // use console.log() as print() in case you want to debug, example below:
   console.log("inside player name");
-  var query = 'SELECT P.nameFirst, P.nameLast FROM Players P';
+  var query = 'SELECT P.playerID, P.name, P.birthYear FROM Players P';
   // you may change the query during implementation
   var name = req.params.name;
-  if (name != 'undefined') query = query + ' WHERE P.nameFirst = "' + name + '"' ;
+  if (name != 'undefined') query = query + ' WHERE P.name LIKE "' + name + '%"' ;
   console.log(query);
   connection.query(query, function(err, rows, fields) {
     if (err) console.log(err);
@@ -43,25 +47,26 @@ router.get('/player/:name', function(req,res) {
     });
 });
 
-/* This method is to get the players data based on the query
-router.get('/player/:name', function(req,res) {
+// This method is to get all the player data based on the playerID
+router.get('/player/:playerID', function(req,res) {
   // use console.log() as print() in case you want to debug, example below:
-  // console.log("inside person email");
-  var query = 'SELECT P.login, P.name, P.sex, P.relationshipStatus, P.birthyear, Count(F.friend) AS numberOfFriends from Person P';
-  query = query + ' LEFT JOIN Friends F ON P.login = F.login';
+  console.log("inside player ID");
+  
+  var query = 'SELECT P.name, P.birthYear, B.yearID, B.teamID, B.G, B.AB, B.R, B.H, B.2B, B.3B, B.HR, B.RBI, B.SB, B.CS, B.BB, B.SO, B.IBB, B.HBP, B.SH, B.SF, B.GIDP ';
+  query = query + ' FROM Players P INNER JOIN Batting B ON P.playerID = B.playerID';
   // you may change the query during implementation
-  var email = req.params.email;
-  if (email != 'undefined') query = query + ' WHERE P.login ="' + email + '"' ;
-  query = query + ' GROUP BY P.login, P.name, P.sex, P.relationshipStatus, P.birthyear';
-  console.log(query);
+  var playerID = req.params.playerID;
+  if (playerID != 'undefined') query = query + ' WHERE P.playerID = "' + playerID + '"' ;
   connection.query(query, function(err, rows, fields) {
     if (err) console.log(err);
     else {
+        console.log(rows);
         res.json(rows);
     }  
     });
+
 });
-*/
+
 
 
 

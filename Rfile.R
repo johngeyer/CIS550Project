@@ -30,7 +30,7 @@ for (i in 2004:2016) {
 
 
 kept.columns.game=c(1,2,8,9,19, 33:46, 93:99, 102:108, 112, 120:124, 127:133, 137)
-kept.names.game=c("GAME_ID", "GAME_DATE", "AWAY_TEAM_ID", "HOME_TEAM_ID", "ATTENDANCE", "TIME", "INN_CT", "AWAY_SCORE", "HOME_SCORE", "AWAY_HITS", "HOME_HITS", "AWAY_ERR", "HOME_ERR", "AWAY_LOB", "HOME_LOB", "WIN_PITCH_ID", "LOSE_PITCH_ID", "SAVE_PITCH_ID", "GWRBI_ID", "AWAY_LINE", "HOME_LINE", "AWAY_AB", "AWAY_2B", "AWAY_3B", "AWAY_HR", "AWAY_RBI", "AWAY_HP", "AWAY_BB", "AWAY_IBB", "AWAY_SO", "AWAY_SB", "AWAY_CS", "AWAY_GDP", "AWAY_ERA", "HOME_AB", "HOME_2B", "HOME_3B", "HOME_HR", "HOME_RBI", "HOME_HP", "HOME_BB", "HOME_IBB", "HOME_SO", "HOME_SB", "HOME_CS", "HOME_GDP", "HOME_ERA")
+kept.names.game=c("GAME_ID", "GAME_DATE", "AWAY_TEAM_ID", "HOME_TEAM_ID", "ATTENDANCE", "TIME", "INN_CT", "AWAY_SCORE", "HOME_SCORE", "AWAY_HITS", "HOME_HITS", "AWAY_ERR", "HOME_ERR", "AWAY_LOB", "HOME_LOB", "WIN_PITCH_ID", "LOSE_PITCH_ID", "SAVE_PITCH_ID", "GWRBI_ID", "AWAY_LINE", "HOME_LINE", "AWAY_AB", "AWAY_Doubles", "AWAY_Triples", "AWAY_HR", "AWAY_RBI", "AWAY_HP", "AWAY_BB", "AWAY_IBB", "AWAY_SO", "AWAY_SB", "AWAY_CS", "AWAY_GDP", "AWAY_ERA", "HOME_AB", "HOME_Doubles", "HOME_Triples", "HOME_HR", "HOME_RBI", "HOME_HP", "HOME_BB", "HOME_IBB", "HOME_SO", "HOME_SB", "HOME_CS", "HOME_GDP", "HOME_ERA")
 game.table = fread("games1952.csv", select=kept.columns.game, header=FALSE, col.names=kept.names.game, colClasses=c("V93"="character", "V94"="character"))
 dbWriteTable(db, "Games", game.table)
 for (i in 1953:2002) {
@@ -46,13 +46,19 @@ for (i in 2004:2016) {
 plr.cols=c(1:4,14,15,17:23)
 plr.col.names=c("playerID","birthYear","birthMonth","birthDay","nameFirst","nameLast","weight","height","bats","throws","debut","finalGame","ID")
 players=fread("lahman/core/Master.csv", select=plr.cols, header=FALSE, skip=1, col.names=plr.col.names)
+players$name = paste(players$nameFirst, players$nameLast)
+players$nameFirst=players$name
+players$nameLast=NULL
+players$name=NULL
+colnames(players)[colnames(players) == "nameFirst"] = "name"
+
 
 team.cols=c(1:3, 7, 9, 10, 15:33, 41, 43, 48)
-team.col.names=c("yearID","lgID","teamID","G","W","L","R","AB","H","2B","3B","HR","BB","SO","SB","CS","HBP","SF","RA","ER","ERA","CG","SHO","SV","IPouts","name","attendance","ID")
+team.col.names=c("yearID","lgID","teamID","G","W","L","R","AB","H","Doubles","Triples","HR","BB","SO","SB","CS","HBP","SF","RA","ER","ERA","CG","SHO","SV","IPouts","name","attendance","ID")
 teams=fread("lahman/core/Teams.csv", select=team.cols, header=FALSE, skip=1, col.names=team.col.names)
 
 batting.cols=c(1,2,3,4,6:22)
-batting.col.names=c("playerID", "yearID", "stint", "teamID", "G","AB","R","H","2B","3B","HR","RBI","SB","CS","BB","SO","IBB","HBP","SH","SF","GIDP")
+batting.col.names=c("playerID", "yearID", "stint", "teamID", "G","AB","R","H","Doubles","Triples","HR","RBI","SB","CS","BB","SO","IBB","HBP","SH","SF","GIDP")
 batting=fread("lahman/core/Batting.csv", select=batting.cols, header=FALSE, skip=1, col.names=batting.col.names)
 head(batting)
 
@@ -101,11 +107,13 @@ teams.to.import=subset(teams, select=c(1:27))
 
 ### Now all data uses retro-sheet identifications for teams and players
 
+
 dbWriteTable(db, "Batting", batting)
 dbWriteTable(db, "Pitching", pitching)
 dbWriteTable(db, "Players", players.to.import)
 dbWriteTable(db, "Salary", salary)
 dbWriteTable(db, "Teams", teams.to.import)
+
 
 dbDisconnect(db)
 

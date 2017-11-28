@@ -37,6 +37,20 @@ app.controller('playerController', function($scope, $http) {
     }; 
 });
 
+// This controller is to show the team rosters/statistics
+app.controller('teamController', function($scope, $http) {
+    $scope.message="";
+    $scope.Submit = function() {
+        var request = $http.get('/teams/'+$scope.name+'/' + $scope.year);
+        request.success(function(data) {
+            $scope.data = data;
+        });
+        request.error(function(data){
+            console.log('err');
+        });    
+    }; 
+});
+
 
 /* To implement "Insert a new record", you need to:
 // - Create a new controller here

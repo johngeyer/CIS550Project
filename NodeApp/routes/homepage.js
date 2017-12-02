@@ -13,6 +13,12 @@ var connection = mysql.createConnection({
 });
 
 
+// connect to neo4j
+var neo4j = require('neo4j-driver').v1;
+var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "neo4j"));
+
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'homepage.html'));
@@ -24,6 +30,10 @@ router.get('/search_player', function(req, res, next) {
 
 router.get('/player', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'player.html'));
+});
+
+router.get('/payroll', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'payroll.html'));
 });
 
 // Changed to /teams instead of /team
@@ -47,6 +57,34 @@ router.get('/search_player/:name', function(req,res) {
         res.json(rows);
       }  
     });
+});
+
+// This method is to get the players that match the prefix of the name
+router.get('/payroll/:name', function(req,res) {
+  // use console.log() as print() in case you want to debug, example below:
+  var name = req.params.name;
+  // Perform the query using the NEO4J promise style
+  var session = driver.session();
+
+  session
+  .run('MATCH (t:Team)-[py:PAYS]->(p:Player {name:\'' + name + '\'}) \
+      RETURN p, t, py')
+  .then(function (result) {
+    var array = new Array();
+    // need to add the player name as the very first node to put on the graph as a node.
+    array.push({name: name});
+    result.records.forEach(function (record) {
+      // collect (team,salary,season) pairs in an object array
+      array.push({team: record.get('t').properties.teamID, salary: record.get('py').properties.salary, season: record.get('py').properties.season});
+    });
+    session.close();
+    // put in json format and pass it to the angular model back
+    res.json(array);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
 });
 
 // This method is to get all the player data based on the playerID
@@ -95,9 +133,5 @@ router.get('/teams/:name/:year', function(req,res) {
     }  
   });
 });
-
-// This method is to get the top performers for a Team in a Season
-
-
 
 module.exports = router;

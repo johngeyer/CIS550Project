@@ -44,7 +44,7 @@ router.get('/teams', function(req, res, next) {
 // This method is to get the players that match the prefix of the name
 router.get('/search_player/:name', function(req,res) {
   // use console.log() as print() in case you want to debug, example below:
-  console.log("inside player name");
+  //console.log(name);
   var query = 'SELECT P.playerID, P.name, P.birthYear FROM Players P';
   // you may change the query during implementation
   var name = req.params.name;

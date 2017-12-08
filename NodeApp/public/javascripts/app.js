@@ -11,7 +11,7 @@ app.controller('searchController', function($scope, $http) {
         $scope.Submit = function() {
         var request = $http.get('/search_player/'+$scope.name);
         request.success(function(data) {
-            //$scope.data = data;
+            $scope.data = data;
         });
         request.error(function(data){
             console.log('err');

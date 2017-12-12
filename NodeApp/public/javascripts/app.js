@@ -67,6 +67,21 @@ app.controller('payrollController', function($scope, $http) {
     }; 
 });
 
+// This controller is to show the team rosters/statistics
+app.controller('topController', function($scope, $http) {
+    $scope.message="";
+    $scope.Submit = function() {
+        var request = $http.get('/top/'+$scope.category+'/' + $scope.name+'/' + $scope.year);
+        request.success(function(data) {
+            $scope.data = data;
+        });
+        request.error(function(data){
+            console.log('err');
+        });    
+    }; 
+});
+
+
 
 // This function renders the Graph based on the results of the Query. The first entry is the Player and the others are (Team,amount)
 function renderGraph(data) {

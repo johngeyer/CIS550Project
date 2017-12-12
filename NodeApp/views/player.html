@@ -50,6 +50,7 @@
                     <li><a href="/search_player">Search Players</a></li>
                     <li><a href="/player">Player's Statistics</a></li>
                     <li><a href="/teams">Search Team</a></li>
+                    <li><a href="/top">Top Performers</a></li>
                     <li><a href="/payroll">Payroll Graph</a></li>
                 </div>
             </div>
@@ -76,6 +77,7 @@
 
         <!-- This table shows all the stats-->
         <div class="jumbotron"> 
+        <h3>Historical Player Statistics</h3>
         <table border="2" cellpadding="5" cellspacing="5" width="800" align="center"> 
             <tr> 
             <td>Year</td>
@@ -98,7 +100,7 @@
             <td>SF</td>
             <td>GIDP</td> 
             <!-- the ng-repeat is basically a for loop that iterates over the rows of the data returned -->
-            <tr ng-repeat="x in data">
+            <tr ng-repeat="x in data | filter:{ yearID: '!2017'}">
             <td>{{x.yearID}}</td>
             <td>{{x.teamID}}</td>
             <td>{{x.G}}</td>
@@ -120,6 +122,51 @@
             <td>{{x.GIDP}}</td> 
             </tr>
         </table>
+        </div>
+
+        <div class="jumbotron"> 
+         <h2>Player Statistics Prediction</h2>
+         <table border="2" cellpadding="5" cellspacing="5" width="800" align="center"> 
+            <tr> 
+            <td>Year</td>
+            <td>Team</td>
+            <td>G</td>
+            <td>AB</td>
+            <td>R</td>
+            <td>H</td>
+            <td>2B</td>
+            <td>3B</td>
+            <td>HR</td>
+            <td>RBI</td>
+            <td>SB</td>
+            <td>CS</td>
+            <td>BB</td>
+            <td>SO</td>
+            <td>IBB</td>
+            <td>HBP</td>
+            <td>SH</td>
+            <td>SF</td>
+            <td>GIDP</td> 
+            <tr ng-repeat="x in data | filter:{ yearID: 2017 }">
+            <td>{{x.yearID}}</td>
+            <td>{{x.teamID}}</td>
+            <td>{{x.G}}</td>
+            <td>{{x.AB}}</td>
+            <td>{{x.R}}</td>
+            <td>{{x.H}}</td>
+            <td>{{x.Doubles}}</td>
+            <td>{{x.Triples}}</td>
+            <td>{{x.HR}}</td>
+            <td>{{x.RBI}}</td>
+            <td>{{x.SB}}</td>
+            <td>{{x.CS}}</td>
+            <td>{{x.BB}}</td>
+            <td>{{x.SO}}</td>
+            <td>{{x.IBB}}</td>
+            <td>{{x.HBP}}</td>
+            <td>{{x.SH}}</td>
+            <td>{{x.SF}}</td>
+            <td>{{x.GIDP}}</td> 
         </div>
 
 </body>

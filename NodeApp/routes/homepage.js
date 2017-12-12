@@ -41,6 +41,11 @@ router.get('/teams', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'team.html'));
 });
 
+// Added Top Performers
+router.get('/top', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'top.html'));
+});
+
 // This method is to get the players that match the prefix of the name
 router.get('/search_player/:name', function(req,res) {
   // use console.log() as print() in case you want to debug, example below:
@@ -124,6 +129,26 @@ router.get('/teams/:name/:year', function(req,res) {
   query = query + ' WHERE B.teamID = "' + name + '"' ;
   query = query + ' AND B.yearID = "' + yearID + '"' ;
   query = query + ' ORDER BY P.name ASC' ;
+  connection.query(query, function(err, rows, fields) {
+    if (err) { 
+      console.log(err);
+    }
+    else {
+      res.json(rows);
+    }  
+  });
+});
+
+// This method is to get the top performers for a season
+router.get('/top/:category/:name/:year', function(req,res) {
+  var category = req.params.category;
+  var name = req.params.name;
+  var yearID = req.params.year;
+  var query = 'SELECT P.name, B.'  + category + ' AS stat';
+  query = query + ' FROM Players P INNER JOIN Batting B ON P.playerID = B.playerID';
+  query = query + ' WHERE B.teamID = "' + name + '"' ;
+  query = query + ' AND B.yearID = "' + yearID + '"' ;
+  query = query + ' GROUP BY P.name ORDER BY sum(B.' + category + ') DESC';
   connection.query(query, function(err, rows, fields) {
     if (err) { 
       console.log(err);

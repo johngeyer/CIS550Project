@@ -2,7 +2,7 @@
 <html ng-app="angularjsNodejsTutorial">
 <html lang="en">
 <head>
-  <title>Team Page</title>
+  <title>Top Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -61,8 +61,28 @@
     <div class="container">
             <!-- Main component for a primary marketing message or call to action-->
             <div class="jumbotron">
-         <div ng-controller="teamController">
-        <p><span aria-hidden="true" class="glyphicon text-primary glyphicon-search"></span> Choose Team Roster
+         <div ng-controller="topController">
+        <p><span aria-hidden="true" class="glyphicon text-primary glyphicon-search"></span> Choose Leader in Category, Team, and Season
+            <br>
+            <select ng-model="category">
+              <option value="G">Games Played</option>
+              <option value="AB">At Bat</option>
+              <option value="R">Runs</option>
+              <option value="H">Hits</option>
+              <option value="Doubles">Doubles</option>
+              <option value="Triples">Triples</option>
+              <option value="HR">Home Runs</option>
+              <option value="RBI">Runs Batted In</option>
+              <option value="SB">Stolen Bases</option>
+              <option value="CS">Times Caught Stealing</option>
+              <option value="BB">Base on Balls</option>
+              <option value="SO">Strikeouts</option>
+              <option value="IBB">Intentional Base on Balls</option>
+              <option value="HBP">Hit By Pitch</option>
+              <option value="SH">Sacrifice Hit</option>
+              <option value="SF">Sacrifice Fly</option>
+              <option value="GIDP">Double Plays Induced</option>
+            </select>
             <select ng-model="name">
               <!-- AL EAST -->
               <option value="BOS">Boston Red Sox</option>
@@ -101,23 +121,16 @@
               <option value="CHN">Chicago Cubs</option>
               <option value="SLN">St. Louis Cardinals</option>
             </select>
-            Season <input name="year" ng-model="year" value=""> <button type="button" ng-click="Submit()" class="button">Search Team</button>
+            <input name="year" ng-model="year" value="">
+            <button type="button" ng-click="Submit()" class="button">Search Top Performers</button>
         </p>
         <table border="0" cellpadding="10" cellspacing="1" width="500" align="center"> 
             <tr> 
             <td> Name </td>
-            <td> Weight </td>
-            <td> Height </td>
-            <td> Bats </td>
-            <td> Throws </td>
-            <td> Debut </td>
+            <td> Stat for Category </td>
             <tr ng-repeat="x in data">
             <td> {{x.name}} </td>
-            <td> {{x.weight}} </td>
-            <td> {{x.height}} </td>
-            <td> {{x.bats}} </td>
-            <td> {{x.throws}} </td>
-            <td> {{x.debut}} </td>
+            <td> {{x.stat}} </td>
             </tr>
         </table>
     </div>

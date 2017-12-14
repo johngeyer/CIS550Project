@@ -37,15 +37,31 @@
   }
 
   input { display: inline; }
-
+  
+  .navbar-brand {
+	font-size:30px;
+  }
+  #navbar>li {
+	padding-top:9px;
+	font-size:24px;
+	position: relative;
+	display: inline-flex;
+	}
 </style>
 </head>
 <body>
 
-<nav role="navigation" class="navbar navbar-static-top navbar-default">
-            <div class="container">
-                <div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand">Baseball</a></div>
-                <div id="navbar" class="collapse navbar-collapse">
+  <!-- Static NavBar-->
+  <nav role="navigation" class="navbar navbar-static-top navbar-default">
+    <div class="container">
+      <div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+      <a class="navbar-brand" href="#">
+	  <img src="http://content.sportslogos.net/news/2014/09/MLB.png" class="img-responsive" style='width:40px'/>
+      </a>
+	  <a href="#" class="navbar-brand">
+	  Baseball
+	  </a></div>
+      <div id="navbar" class="collapse navbar-collapse">
                     <li><a href="/">Home Page</a></li>
                     <li><a href="/search_player">Search Players</a></li>
                     <li><a href="/player">Player's Statistics</a></li>
@@ -58,7 +74,7 @@
 
 
       <div class="col-sm-9">
-        <h4><small>Player Statistics</small></h4>
+        <h1><small>Player Statistics</small></h1>
 
          <div class="container">
           <div ng-controller="playerController">
@@ -75,7 +91,6 @@
         <p>{{data[0].birthYear}}</p>
 
 
-        <!-- This table shows all the stats-->
         <div class="jumbotron"> 
         <h3>Historical Player Statistics</h3>
         <table border="2" cellpadding="5" cellspacing="5" width="800" align="center"> 

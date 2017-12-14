@@ -33,17 +33,48 @@
     .row.content {height: auto;} 
   }
   input { display: inline; }
+    .navbar-brand {
+	font-size:30px;
+  }
+  #navbar>li {
+	padding-top:9px;
+	font-size:24px;
+	position: relative;
+	display: inline-flex;
+	}
+
 </style>
+<script>
+$(function() {
+	$(document).on('change', '#team_selector', function(){
+
+		var twitter = $("#team_selector option:selected").attr('twitter');
+		
+		if(twitter.length==0)
+			twitter = 'MLB';
+		
+		$('.twitter-wrapper').html();
+		
+		var twitter_script = '<a class="twitter-timeline" href="https://twitter.com/'+twitter+'" data-width="600"  data-height="1500">Tweets by '+twitter+'<\/a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"><\/script>';
+		
+		$('.twitter-wrapper').html(twitter_script);
+		
+	});
+});
+</script>
 </head>
 <body>
 
-
-
-    <!-- Static NavBar-->
-    <nav role="navigation" class="navbar navbar-static-top navbar-default">
-            <div class="container">
-                <div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand">Baseball</a></div>
-                <div id="navbar" class="collapse navbar-collapse">
+  <!-- Static NavBar-->
+  <nav role="navigation" class="navbar navbar-static-top navbar-default">
+    <div class="container">
+      <div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+      <a class="navbar-brand" href="#">
+	  <img src="http://content.sportslogos.net/news/2014/09/MLB.png" class="img-responsive" style='width:40px'/>
+      </a>
+	  <a href="#" class="navbar-brand">
+	  Baseball
+	  </a></div>                <div id="navbar" class="collapse navbar-collapse">
                     <li><a href="/">Home Page</a></li>
                     <li><a href="/search_player">Search Players</a></li>
                     <li><a href="/player">Player's Statistics</a></li>
@@ -55,7 +86,13 @@
     </nav>
 
 
+		<div class="col-sm-3">
+			<div class="twitter-wrapper">
+				<a class="twitter-timeline" href="https://twitter.com/RedSox?ref_src=twsrc%5Etfw"  data-width="600"  data-height="1500">Tweets by RedSox</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+			</div>
+		</div>
         <div class="col-sm-9">
+		  <h1><small>Search Team</small></h1>
 
     <!-- TEAM ROSTER -->
     <div class="container">
@@ -63,43 +100,43 @@
             <div class="jumbotron">
          <div ng-controller="teamController">
         <p><span aria-hidden="true" class="glyphicon text-primary glyphicon-search"></span> Choose Team Roster
-            <select ng-model="name">
+            <select ng-model="name" id="team_selector">
               <!-- AL EAST -->
-              <option value="BOS">Boston Red Sox</option>
-              <option value="NYA">New York Yankees</option>
-              <option value="BAL">Baltimore Orioles</option>
-              <option value="TBA">Tampa Bay Rays</option>
-              <option value="TOR">Toronto Blue Jays</option>
+              <option value="BOS" twitter="RedSox">Boston Red Sox</option>
+              <option value="NYA" twitter="Yankees">New York Yankees</option>
+              <option value="BAL" twitter="Orioles">Baltimore Orioles</option>
+              <option value="TBA" twitter="RaysBaseball">Tampa Bay Rays</option>
+              <option value="TOR" twitter="BlueJays">Toronto Blue Jays</option>
               <!-- AL West -->
-              <option value="HOU">Houston Astros</option>
-              <option value="SEA">Seattle Mariners</option>
-              <option value="ANA">Anaheim Angels</option>
-              <option value="TEX">Texas Rangers</option>
-              <option value="OAK">Oakland A's</option>
+              <option value="HOU" twitter="astros">Houston Astros</option>
+              <option value="SEA" twitter="Mariners">Seattle Mariners</option>
+              <option value="ANA" twitter="Angels">Anaheim Angels</option>
+              <option value="TEX" twitter="Rangers">Texas Rangers</option>
+              <option value="OAK" twitter="Athletics">Oakland A's</option>
               <!-- AL Central -->
-              <option value="KCA">Kansas City Royals</option>
-              <option value="CHA">Chicago White Sox</option>
-              <option value="DET">Detroit Tigers</option>
-              <option value="MIN">Minnesota Twins</option>
-              <option value="CLE">Cleveland Indians</option>
+              <option value="KCA" twitter="Royals">Kansas City Royals</option>
+              <option value="CHA" twitter="whitesox">Chicago White Sox</option>
+              <option value="DET" twitter="tigers">Detroit Tigers</option>
+              <option value="MIN" twitter="Twins">Minnesota Twins</option>
+              <option value="CLE" twitter="Indians">Cleveland Indians</option>
               <!-- NL WEST -->
-              <option value="ARI">Arizona Diamondbacks</option>
-              <option value="SDN">San Diego Padres</option>
-              <option value="LAN">Los Angeles Dodgers</option>
-              <option value="COL">Colorado Rockies</option>
-              <option value="SFN">San Francisco Giants</option>
+              <option value="ARI" twitter="Dbacks">Arizona Diamondbacks</option>
+              <option value="SDN" twitter="Padres">San Diego Padres</option>
+              <option value="LAN" twitter="Dodgers">Los Angeles Dodgers</option>
+              <option value="COL" twitter="Rockies">Colorado Rockies</option>
+              <option value="SFN" twitter="SFGiants">San Francisco Giants</option>
               <!-- NL EAST -->
-              <option value="NYN">New York Mets</option>
-              <option value="ATL">Atlanta Braves</option>
-              <option value="PHI">Philadelphia Phillies</option>
-              <option value="MIA">Miami Marlins</option>
-              <option value="WAS">Washington Nationals</option>
+              <option value="NYN" twitter="Mets">New York Mets</option>
+              <option value="ATL" twitter="Braves">Atlanta Braves</option>
+              <option value="PHI" twitter="Phillies">Philadelphia Phillies</option>
+              <option value="MIA" twitter="Marlins">Miami Marlins</option>
+              <option value="WAS" twitter="Nationals">Washington Nationals</option>
               <!-- NL Central -->
-              <option value="MIL">Milwaukee Brewers</option>
-              <option value="CIN">Cincinatti Reds</option>
-              <option value="PIT">Pittsburgh Pirates</option>
-              <option value="CHN">Chicago Cubs</option>
-              <option value="SLN">St. Louis Cardinals</option>
+              <option value="MIL" twitter="Brewers">Milwaukee Brewers</option>
+              <option value="CIN" twitter="Reds">Cincinatti Reds</option>
+              <option value="PIT" twitter="Pirates">Pittsburgh Pirates</option>
+              <option value="CHN" twitter="Cubs">Chicago Cubs</option>
+              <option value="SLN" twitter="Cardinals">St. Louis Cardinals</option>
             </select>
             Season <input name="year" ng-model="year" value=""> <button type="button" ng-click="Submit()" class="button">Search Team</button>
         </p>

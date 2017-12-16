@@ -1,14 +1,16 @@
-fMySQL Database Information
+MySQL Database Information
 user = 'johngeyer'
 password = '10370Buxton!'
 host = 'baseballdata.cu9ww8beiiup.us-east-2.rds.amazonaws.com'
 port = 3306 
 Database Name = 'CIS550'
+Hosted on AWS
 
 ## Note that the port number is for MySQL clients. We may 
 ## need to use a different port for our actual website, (I 
 ## can set up the port for HTTP access)
 
+Index on Players(name) and Batting(playerID)
 
 Tables/Schemas: 
 
@@ -194,4 +196,12 @@ Pitching
 	SH
 	SF
 	GIDP
+
+twitter
+	team_name
+	twitter_feed
+
+VIEW active_players
+	playerID
+
 

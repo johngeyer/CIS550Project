@@ -1,0 +1,14 @@
+PLEASE NOTE: Because hosting a Neo4J instance on AWS required money, we chose to host it 
+locally. Please see the cypher .CYP files in the "input_files_final" directory to see our imported
+data. See the "graph.png" file for a picture of a subgraph of this database. 
+
+Nodes:
+
+	Player(name)
+	Team(teamID, abbr)
+
+Edges: 
+
+	PAYS(salary, season)
+
+Index on Player(name) (see the file "ANA_input.cyp" for where we create this index)

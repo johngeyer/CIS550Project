@@ -1,3 +1,5 @@
+CREATE INDEX ON :Player(name)
+
 MERGE (p1:Player {name:"Albert Pujols"})
 
 MERGE (t1:Team {teamID:"LA Angels",abbr:"ANA"})
